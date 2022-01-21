@@ -34,7 +34,6 @@ function startGame() {
   intervalID = setInterval(timeRemaining, 1000);
   form.style.display = "block";
   startBtn.style.display = "none";
-  //   timer.style.display = "block";
 }
 
 function submitAnswers(e) {
