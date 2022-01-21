@@ -1,10 +1,9 @@
 const timer = document.querySelector("#timer");
 const startBtn = document.querySelector("#startBtn");
-const submitBtn = document.querySelector("#submitButton");
+const submitBtn = document.querySelector("#submitBtn");
 const form = document.querySelector("#form");
 const gameStats = document.querySelector("#gameStats");
 const restartBtn = document.querySelector("#restartBtn");
-const input = document.querySelectorAll("input");
 const correct = document.querySelector("#correct");
 const incorrect = document.querySelector("#incorrect");
 const unanswered = document.querySelector("#unanswered");
@@ -13,11 +12,6 @@ let incorrectScore = 0;
 let unansweredScore = 0;
 let time = 60;
 let intervalID;
-
-function contentDisplay() {
-  form.style.display = "block";
-  startBtn.style.display = "none";
-}
 
 function timeRemaining() {
   time--;
@@ -38,7 +32,9 @@ function gameOver() {
 
 function startGame() {
   intervalID = setInterval(timeRemaining, 1000);
-  contentDisplay();
+  form.style.display = "block";
+  startBtn.style.display = "none";
+  //   timer.style.display = "block";
 }
 
 function submitAnswers(e) {
@@ -61,18 +57,12 @@ function restartGame() {
 }
 
 function score() {
-  let firstAnswer = document.querySelector('input[name="shape"]:checked').value;
-  let secondAnswer = document.querySelector('input[name="fear"]:checked').value;
-  let thirdAnswer = document.querySelector(
-    'input[name="person"]:checked'
-  ).value;
-  let fourthAnswer = document.querySelector(
-    'input[name="company"]:checked'
-  ).value;
-  console.log(input);
+  // add 1 to correct score for each correct answer
+  // add 1 to incorrect score for each incorrect answer
+  // add 1 to unanswered score for each incorrect answer
   correct.textContent = `Correct Answers: ${correctScore}`;
   incorrect.textContent = `Incorrect Answers: ${incorrectScore}`;
-  unanswered.textContent = `Blank Answers : ${unansweredScore}`;
+  unanswered.textContent = `Blank Answers: ${unansweredScore}`;
 }
 
 startBtn.addEventListener("click", startGame);
