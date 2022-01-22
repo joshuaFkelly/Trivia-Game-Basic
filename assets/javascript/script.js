@@ -1,22 +1,49 @@
+const triviaQuestions = [
+  {
+    questionOne: "Which geometric shape is used for stop signs?",
+    a: "Square",
+    b: "Triangle",
+    c: "Octagon",
+    d: "Hexagon",
+    correct: "Octagon",
+  },
+  {
+    questionTwo: "What is cynophobia?",
+    a: "Fear of Dogs",
+    b: "Fear of Cats",
+    c: "Fear of Heights",
+    d: "Fear of Dentists",
+    correct: "a",
+  },
+  {
+    questionThree: "Who named the Pacific Ocean?",
+    a: "Ferdinand the Bull",
+    b: "Ferdinand Magellan",
+    c: "Franz Ferdinand",
+    d: "Ferdinand Marcos",
+    correct: "b",
+  },
+  {
+    questionFour: "What is the biggest tech company in South Korea?",
+    a: "Lenovo",
+    b: "Huawei",
+    c: "Mitsibushi",
+    d: "Samsung",
+    correct: "d",
+  },
+];
 const timer = document.querySelector("#timer");
 const startBtn = document.querySelector("#startBtn");
 const submitBtn = document.querySelector("#submitBtn");
 const form = document.querySelector("#form");
 const gameStats = document.querySelector("#gameStats");
 const restartBtn = document.querySelector("#restartBtn");
-const correct = document.querySelector("#correct");
-const incorrect = document.querySelector("#incorrect");
-const unanswered = document.querySelector("#unanswered");
-let correctScore = 0;
-let incorrectScore = 0;
-let unansweredScore = 0;
 let time = 60;
 let intervalID;
 
 function timeRemaining() {
   time--;
   timer.textContent = `${time} seconds remaining`;
-  console.log(time);
   if (time === 0) {
     gameOver();
   }
@@ -26,7 +53,6 @@ function gameOver() {
   form.style.display = "none";
   gameStats.style.display = "block";
   restartBtn.style.display = "inline";
-  console.log("Game is Over");
   clearInterval(intervalID);
 }
 
@@ -40,7 +66,6 @@ function submitAnswers(e) {
   e.preventDefault();
   clearInterval(intervalID);
   gameOver();
-  score();
 }
 
 function restartGame() {
@@ -48,20 +73,8 @@ function restartGame() {
   form.style.display = "block";
   gameStats.style.display = "none";
   restartBtn.style.display = "none";
+  allOptions.forEach((option) => (option.checked = false));
   intervalID = setInterval(timeRemaining, 1000);
-  document.querySelector('input[name="shape"]:checked').checked = false;
-  document.querySelector('input[name="person"]:checked').checked = false;
-  document.querySelector('input[name="fear"]:checked').checked = false;
-  document.querySelector('input[name="company"]:checked').checked = false;
-}
-
-function score() {
-  // add 1 to correct score for each correct answer
-  // add 1 to incorrect score for each incorrect answer
-  // add 1 to unanswered score for each incorrect answer
-  correct.textContent = `Correct Answers: ${correctScore}`;
-  incorrect.textContent = `Incorrect Answers: ${incorrectScore}`;
-  unanswered.textContent = `Blank Answers: ${unansweredScore}`;
 }
 
 startBtn.addEventListener("click", startGame);
