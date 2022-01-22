@@ -38,6 +38,11 @@ const submitBtn = document.querySelector("#submitBtn");
 const form = document.querySelector("#form");
 const gameStats = document.querySelector("#gameStats");
 const restartBtn = document.querySelector("#restartBtn");
+const allOptions = document.querySelectorAll(".option");
+const correctDiv = document.querySelector("#correctDiv");
+const incorrectDiv = document.querySelector("#incorrectDiv");
+let correctScore = 0;
+let incorrectScore = 0;
 let time = 60;
 let intervalID;
 
@@ -53,7 +58,6 @@ function gameOver() {
   form.style.display = "none";
   gameStats.style.display = "block";
   restartBtn.style.display = "inline";
-  clearInterval(intervalID);
 }
 
 function startGame() {
@@ -65,16 +69,32 @@ function startGame() {
 function submitAnswers(e) {
   e.preventDefault();
   clearInterval(intervalID);
+  allOptions.forEach((option) => {
+    if (option.checked) {
+      if (option.value === "correct") {
+        correctScore++;
+        correctDiv.textContent = `Correct: ${correctScore}`;
+      } else if (option.value === "incorrect" || !option.checked) {
+        incorrectScore++;
+        incorrectDiv.textContent = `Incorrect: ${incorrectScore}`;
+      }
+    }
+  });
+
   gameOver();
 }
 
 function restartGame() {
   time = 60;
-  form.style.display = "block";
-  gameStats.style.display = "none";
-  restartBtn.style.display = "none";
+  correctScore = 0;
+  incorrectScore = 0;
+  correctDiv.textContent = `Correct: ${correctScore}`;
+  incorrectDiv.textContent = `Incorrect: ${incorrectScore}`;
   allOptions.forEach((option) => (option.checked = false));
-  intervalID = setInterval(timeRemaining, 1000);
+  gameStats.style.display = "none";
+  form.style.display = "block";
+  console.log(correctScore);
+  console.log(incorrectScore);
 }
 
 startBtn.addEventListener("click", startGame);
