@@ -93,8 +93,7 @@ function restartGame() {
   allOptions.forEach((option) => (option.checked = false));
   gameStats.style.display = "none";
   form.style.display = "block";
-  console.log(correctScore);
-  console.log(incorrectScore);
+  intervalID = setInterval(timeRemaining, 1000);
 }
 
 startBtn.addEventListener("click", startGame);
